@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>App de Clima</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { padding: 8px; margin: 5px; }
+        #resultado { margin-top: 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>🌦 Consulta de Clima</h1>
+    <input type="text" id="cidade" placeholder="Digite a cidade">
+    <button onclick="buscarClima()">Buscar</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function buscarClima() {
+            const cidade = document.getElementById("cidade").value;
+            if (!cidade) {
+                alert("Digite uma cidade!");
+                return;
+            }
+
+            fetch(`/clima?cidade=${encodeURIComponent(cidade)}`)
+                .then(resp => resp.json())
+                .then(dados => {
+                    if (dados.erro) {
+                        document.getElementById("resultado").innerHTML = `<p>❌ ${dados.erro}</p>`;
+                    } else {
+                        document.getElementById("resultado").innerHTML = `
+                            <p>🌡 Temperatura em <strong>${dados.cidade}</strong>: ${dados.temperatura}°C</p>
+                            <p>☁ Clima: ${dados.descricao}</p>
+                        `;
+                    }
+                })
+                .catch(() => {
+                    document.getElementById("resultado").innerHTML = "<p>❌ Erro ao buscar dados</p>";
+                });
+        }
+    </script>
+</body>
+</html>

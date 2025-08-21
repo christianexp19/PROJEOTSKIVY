@@ -1,0 +1,74 @@
+<AiControlPanel>:
+    orientation: 'vertical'
+    padding: 20
+    spacing: 15
+    
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.1, 0.15, 1  # Cor de fundo escura
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # Status da IA
+    Label:
+        text: root.ai_status
+        font_size: '20sp'
+        halign: 'center'
+        size_hint_y: None
+        height: '40dp'
+
+    # Nível de Ameaça (barra de progresso)
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: '40dp'
+        
+        Label:
+            text: 'Nível de Ameaça:'
+            size_hint_x: 0.4
+            
+        ProgressBar:
+            id: threat_bar
+            value: root.threat_level
+            size_hint_x: 0.6
+            max: 100
+            
+            canvas:
+                # Altera a cor da barra de acordo com o nível de ameaça
+                Color:
+                    rgba: (1, 0.2, 0.2, 1) if root.threat_level > 70 else (1, 0.8, 0, 1) if root.threat_level > 40 else (0.2, 0.8, 0.2, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.width * self.value_normalized, self.height
+
+    # Status Online/Offline da IA
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: '40dp'
+        
+        Label:
+            text: 'IA Online:'
+            size_hint_x: 0.8
+            
+        Switch:
+            id: ai_toggle
+            active: root.ai_online
+            on_active: root.toggle_ai_status(self, self.active)
+            size_hint_x: 0.2
+
+    # Campo de Comando
+    TextInput:
+        id: command_input
+        hint_text: 'Digite um comando para a IA...'
+        multiline: False
+        size_hint_y: None
+        height: '40dp'
+
+    # Botão de Enviar Comando
+    Button:
+        text: 'Enviar Comando'
+        on_press: root.send_command(self)
+        size_hint_y: None
+        height: '40dp'
