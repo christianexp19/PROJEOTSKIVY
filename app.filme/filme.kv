@@ -1,0 +1,75 @@
+<FilmeLayout>:
+    nome_input: nome_input
+    resultado: resultado
+    capa_filme: capa_filme
+    historico_label: historico_label
+
+    orientation: 'vertical'
+    padding: 20
+    spacing: 15
+
+    canvas.before:
+        Color:
+            rgba: 0.92, 0.95, 0.98, 1  # #ebf2fa
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        text: '[b]🍿 Bem-vindo ao Sugeridor de Filmes![/b]'
+        markup: True
+        font_size: '28sp'
+        color: 0.02, 0.28, 0.54, 1  # #064789
+        size_hint_y: None
+        height: 50
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.width, None
+
+    TextInput:
+        id: nome_input
+        hint_text: 'Digite seu nome aqui...'
+        multiline: False
+        size_hint_y: None
+        height: 45
+        foreground_color: 0.02, 0.28, 0.54, 1  # #064789
+        background_color: 1, 1, 1, 1
+        font_size: '18sp'
+        padding: [10, 10]
+
+    Button:
+        text: '🎥 Sugerir Filme'
+        size_hint_y: None
+        height: 50
+        background_color: 0.26, 0.48, 0.63, 1  # #427aa1
+        color: 1, 1, 1, 1
+        font_size: '18sp'
+        on_press: root.sugerir_filme()
+
+    Label:
+        id: resultado
+        text: ''
+        markup: True
+        font_size: '20sp'
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.width, None
+        color: 0.02, 0.28, 0.54, 1  # #064789
+
+    Image:
+        id: capa_filme
+        source: ''
+        size_hint_y: None
+        height: 200
+        allow_stretch: True
+        keep_ratio: True
+
+    Label:
+        id: historico_label
+        text: ''
+        markup: True
+        font_size: '16sp'
+        color: 0.26, 0.48, 0.63, 1  # #427aa1
+        halign: 'left'
+        valign: 'top'
+        text_size: self.width, None
