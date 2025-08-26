@@ -1,0 +1,39 @@
+<IdadeLayout>:
+    orientation: "vertical"
+    padding: 20
+    spacing: 15
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint_y: 0.5
+        spacing: 10
+
+        TextInput:
+            id: nome_input
+            hint_text: "Digite seu nome"
+            multiline: False
+            background_color: 1, 1, 1, 1
+            foreground_color: 0, 0, 0, 1
+            font_size: 16
+        TextInput:
+            id: idade_input
+            hint_text: "Digite sua idade"
+            multiline: False
+            input_filter: "int"
+            background_color: 1, 1, 1, 1
+            foreground_color: 0, 0, 0, 1
+            font_size: 16
+
+    Button:
+        text: "Enviar"
+        size_hint_y: 0.2
+        background_color: 0.1, 0.5, 0.8, 1
+        font_size: 18
+        on_press: root.verificar_idade()
+
+    Label:
+        id: resultado
+        text: "Digite seu nome e idade, depois clique em Enviar."
+        font_size: 18
+        color: 1, 1, 1, 1
+        size_hint_y: 0.3
