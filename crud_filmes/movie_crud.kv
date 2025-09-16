@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 
 <FilmeItem@BoxLayout>:
@@ -212,4 +213,220 @@ ScreenManager:
         id: cadastro_screen
     
     EdicaoScreen:
+=======
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<FilmeItem@BoxLayout>:
+    size_hint_y: None
+    height: "60dp"
+    orientation: "horizontal"
+    spacing: "10dp"
+    
+    Label:
+        text: root.titulo
+        size_hint_x: 0.4
+        text_size: self.width, None
+    
+    Label:
+        text: root.genero
+        size_hint_x: 0.3
+        text_size: self.width, None
+    
+    Label:
+        text: str(root.ano)
+        size_hint_x: 0.2
+        text_size: self.width, None
+    
+    Button:
+        text: "Editar"
+        size_hint_x: 0.1
+        on_release: app.editar_filme(root.filme_id)
+    
+    Button:
+        text: "Excluir"
+        size_hint_x: 0.1
+        on_release: app.deletar_filme(root.filme_id)
+
+<CadastroScreen>:
+    name: "cadastro"
+    
+    BoxLayout:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "15dp"
+        
+        Label:
+            text: "Cadastro de Filme"
+            font_size: "24sp"
+            size_hint_y: 0.2
+        
+        BoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+            
+            Label:
+                text: "Título:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: titulo_input
+                multiline: False
+                size_hint_y: None
+                height: "40dp"
+            
+            Label:
+                text: "Gênero:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: genero_input
+                multiline: False
+                size_hint_y: None
+                height: "40dp"
+            
+            Label:
+                text: "Ano:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: ano_input
+                multiline: False
+                input_filter: "int"
+                size_hint_y: None
+                height: "40dp"
+        
+        BoxLayout:
+            size_hint_y: 0.2
+            spacing: "10dp"
+            
+            Button:
+                text: "Salvar"
+                on_release: root.salvar_filme()
+            
+            Button:
+                text: "Voltar para Lista"
+                on_release: app.mudar_tela("listagem")
+
+<ListagemScreen>:
+    name: "listagem"
+    
+    BoxLayout:
+        orientation: "vertical"
+        padding: "10dp"
+        spacing: "10dp"
+        
+        BoxLayout:
+            size_hint_y: None
+            height: "50dp"
+            spacing: "10dp"
+            
+            TextInput:
+                id: busca_input
+                hint_text: "Buscar por título..."
+                multiline: False
+                size_hint_x: 0.7
+            
+            Button:
+                text: "Buscar"
+                size_hint_x: 0.3
+                on_release: root.buscar_filmes()
+        
+        ScrollView:
+            GridLayout:
+                id: filmes_container
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: "5dp"
+        
+        BoxLayout:
+            size_hint_y: None
+            height: "50dp"
+            spacing: "10dp"
+            
+            Button:
+                text: "Novo Filme"
+                on_release: app.mudar_tela("cadastro")
+            
+            Button:
+                text: "Ordenar por Ano"
+                on_release: root.ordenar_por_ano()
+
+<EdicaoScreen>:
+    name: "edicao"
+    
+    BoxLayout:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "15dp"
+        
+        Label:
+            text: "Editar Filme"
+            font_size: "24sp"
+            size_hint_y: 0.2
+        
+        BoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+            
+            Label:
+                text: "Título:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: titulo_edit
+                multiline: False
+                size_hint_y: None
+                height: "40dp"
+            
+            Label:
+                text: "Gênero:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: genero_edit
+                multiline: False
+                size_hint_y: None
+                height: "40dp"
+            
+            Label:
+                text: "Ano:"
+                size_hint_y: None
+                height: "30dp"
+            
+            TextInput:
+                id: ano_edit
+                multiline: False
+                input_filter: "int"
+                size_hint_y: None
+                height: "40dp"
+        
+        BoxLayout:
+            size_hint_y: 0.2
+            spacing: "10dp"
+            
+            Button:
+                text: "Atualizar"
+                on_release: root.atualizar_filme()
+            
+            Button:
+                text: "Cancelar"
+                on_release: app.mudar_tela("listagem")
+
+ScreenManager:
+    transition: FadeTransition()
+    
+    ListagemScreen:
+        id: listagem_screen
+    
+    CadastroScreen:
+        id: cadastro_screen
+    
+    EdicaoScreen:
+>>>>>>> a7aec5f38ed1b4deb063b16a25b4fccfbcb7daec
         id: edicao_screen
