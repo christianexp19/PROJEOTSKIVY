@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulário Simples</title>
+  <style>
+    :root{
+      --roxo:#6d28d9;
+      --cinza:#f3f4f6;
+      --branco:#ffffff;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:var(--cinza);
+    }
+
+    .card{
+      width:100%;
+      max-width:400px;
+      background:var(--branco);
+      padding:20px;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1{
+      margin:0 0 16px;
+      font-size:18px;
+      color:var(--roxo);
+      text-align:center;
+    }
+
+    label{
+      font-size:14px;
+      display:block;
+      margin:10px 0 4px;
+      color:#333;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      font-size:14px;
+    }
+
+    .actions{
+      margin-top:16px;
+      display:flex;
+      gap:8px;
+    }
+
+    button{
+      flex:1;
+      padding:10px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    .btn-primary{background:var(--roxo);color:var(--branco)}
+    .btn-clear{background:#eee;color:#333}
+
+    .error-text{
+      font-size:12px;
+      color:red;
+      margin-top:4px;
+    }
+
+    .success{
+      display:none;
+      margin-bottom:12px;
+      padding:8px;
+      border-radius:6px;
+      background:#d1fae5;
+      color:#065f46;
+      text-align:center;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Cadastro</h1>
+
+    <div id="success" class="success"></div>
+
+    <form id="form" novalidate>
+      <label for="nome">Nome</label>
+      <input id="nome" required>
+      <div id="nomeError" class="error-text"></div>
+
+      <label for="email">E-mail</label>
+      <input id="email" type="email" required>
+      <div id="emailError" class="error-text"></div>
+
+      <label for="telefone">Telefone</label>
+      <input id="telefone" required placeholder="(11) 98765-4321">
+      <div id="telefoneError" class="error-text"></div>
+
+      <label for="curso">Curso</label>
+      <select id="curso" required>
+        <option value="">-- selecione --</option>
+        <option>Web</option>
+        <option>Banco de Dados</option>
+        <option>Redes</option>
+      </select>
+      <div id="cursoError" class="error-text"></div>
+
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" minlength="6" required>
+      <div id="senhaError" class="error-text"></div>
+
+      <div class="actions">
+        <button type="button" id="clear" class="btn-clear">Limpar</button>
+        <button type="submit" class="btn-primary">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    const success = document.getElementById('success');
+    const clearBtn = document.getElementById('clear');
+
+    function showError(id,msg){
+      document.getElementById(id).textContent = msg;
+    }
+    function clearErrors(){
+      ['nomeError','emailError','telefoneError','cursoError','senhaError']
+        .forEach(e=>document.getElementById(e).textContent='');
+    }
+
+    clearBtn.addEventListener('click', ()=>{
+      form.reset();
+      clearErrors();
+      success.style.display='none';
+    });
+
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      clearErrors();
+      success.style.display='none';
+      let valid=true;
+
+      const nome=document.getElementById('nome');
+      const email=document.getElementById('email');
+      const tel=document.getElementById('telefone');
+      const curso=document.getElementById('curso');
+      const senha=document.getElementById('senha');
+
+      if(!nome.value.trim()){showError('nomeError','Nome obrigatório');valid=false;}
+      if(!email.checkValidity()){showError('emailError','E-mail inválido');valid=false;}
+      if(!tel.value.trim()){showError('telefoneError','Telefone obrigatório');valid=false;}
+      if(!curso.value){showError('cursoError','Selecione um curso');valid=false;}
+      if(!senha.value || senha.value.length<6){showError('senhaError','Senha mínima 6 caracteres');valid=false;}
+
+      if(valid){
+        success.textContent='Cadastro realizado com sucesso!';
+        success.style.display='block';
+        console.log("Dados:",{
+          nome:nome.value,email:email.value,tel:tel.value,curso:curso.value
+        });
+      }
+    });
+  </script>
+</body>
+</html>
