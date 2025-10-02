@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    :root {
+      --primaria: #6d28d9;
+      --secundaria: #f3f4f6;
+      --fundo: #ffffff;
+      --texto: #111827;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: var(--secundaria);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      background: var(--fundo);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: var(--primaria);
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button.add-btn {
+      padding: 10px 14px;
+      margin-left: 8px;
+      background: var(--primaria);
+      color: var(--fundo);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button.add-btn:hover {
+      background: #5b21b6;
+    }
+
+    ul#lista {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 6px 0;
+      padding: 10px;
+      border-radius: 6px;
+      background: #f0f0f0;
+    }
+
+    li button {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    li button:hover {
+      background: #b91c1c;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Minha Lista de Tarefas</h2>
+    <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+    <button class="add-btn" onclick="adicionarTarefa()">Adicionar</button>
+    <ul id="lista"></ul>
+  </div>
+
+  <script>
+    function adicionarTarefa() {
+      const input = document.getElementById("tarefa");
+      let valor = input.value.trim(); // remove espaços antes/depois
+
+      if (valor === "") {
+        alert("Digite uma tarefa!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = valor;
+
+      const botaoRemover = document.createElement("button");
+      botaoRemover.textContent = "Remover";
+      botaoRemover.onclick = () => li.remove();
+
+      li.appendChild(botaoRemover);
+      document.getElementById("lista").appendChild(li);
+
+      input.value = "";
+      input.focus();
+    }
+  </script>
+</body>
+</html>
